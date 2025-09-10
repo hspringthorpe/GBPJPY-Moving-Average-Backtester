@@ -1,8 +1,10 @@
 # GBPJPY_Moving_Average_Backtester ***(WORK IN PROGRESS)***
 
-Moving average strategy used on the currency pair GBP/JPY.
+Backtest of a moving average strategy used on the currency pair GBP/JPY.
 
-# Logic
+My aim is to create a moving average backtester by running through a set of data and using performance metrics to deteremine the success of the strategy.
+
+# Current Logic
 
 This Python script downloads the 1 day time series data for the currency pair GBP/JPY from Yahoo Finance, creates 20 day and 50 day moving averages, presents this data on a graph and iterates over the data via a for loop.
 
