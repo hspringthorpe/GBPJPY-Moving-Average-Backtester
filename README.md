@@ -1,4 +1,4 @@
-# GBPJPY_Moving_Average_Backtester ***(WORK IN PROGRESS)***
+# GBPJPY-Moving-Average-Backtester ***(WORK IN PROGRESS)***
 
 Backtest of a moving average strategy used on the currency pair GBP/JPY.
 
