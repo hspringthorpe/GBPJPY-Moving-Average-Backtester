@@ -15,19 +15,24 @@ When price is below both moving averages and the 20 day moving average moves bel
 # Libraries used
 **yfinance:**
 
-- collects time series ticker data history from Yahoo Finance as a pandas DataFrame.
+- Collects time series ticker data history from Yahoo Finance as a pandas DataFrame.
 
 **Matplotlib:**
 
-- plots the data for visualisation purposes.
+- Plots the data for visualisation purposes.
 
 
 **pandas:**
 
-- exports yfinance data to .csv.
+- Exports yfinance data to .csv.
 
 
-- manipulates the data to create moving averages.
+- Manipulates the data to create moving averages.
 
 
-- allows us to iterate over the time series data via a for loop.
+- Allows to iterate over the time series data via a for loop.
+
+
+**NumPy:**
+
+- Will be used on the data from pandas to highlight performance of stratgey.
