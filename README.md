@@ -2,7 +2,7 @@
 
 Backtest of a moving average strategy used on the currency pair GBP/JPY.
 
-My aim is to create a moving average backtester by running through a set of data and using performance metrics to deteremine the success of the strategy.
+My aim is to create a moving average backtester by running through a set of data and using performance metrics to determine the success of the strategy.
 
 # Current Logic
 
@@ -30,9 +30,9 @@ When price is below both moving averages and the 20 day moving average moves bel
 - Manipulates the data to create moving averages.
 
 
-- Allows to iterate over the time series data via a for loop.
+- Allows iteration over the time series data via a for loop.
 
 
 **NumPy:**
 
-- Will be used on the data from pandas to highlight performance of stratgey.
+- Will be used on the iterated data to highlight the performance of strategy.
