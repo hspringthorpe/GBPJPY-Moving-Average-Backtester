@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 gbpjpy = yf.Ticker("GBPJPY=X") 
 
-# download daily data from start to today [update the end date to the current date]
+# download daily data from start to today
 gbpjpy_close_data = gbpjpy.history(period="max", interval="1d")
 
 # save to CSV for your repo
@@ -27,9 +27,6 @@ plt.xlabel("Date")
 plt.show()
 
 
-
-"""to do: implement actual buy and order decisions and not just a print"""
-
 # changes to "buy" or "sell". Used so signals are only printed when the cross overs occur
 last_signal = None  
 
@@ -46,6 +43,7 @@ for index, row in gbpjpy_close_data.iterrows():
         last_signal = "sell"
 
 
+#to do:
 """***CURRENTLY MISSING RISK MANAGEMENT RULES WHICH ARE***:
      - set take profit to 2:1
      - if risk is more than 1.5% of account balance do not take trade
