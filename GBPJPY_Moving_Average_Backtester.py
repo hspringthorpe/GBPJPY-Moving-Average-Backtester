@@ -3,23 +3,40 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+#to do:
+# create atr_day_1 and atr for stop loss
+# account and risk management parameters for strategy
+# create actual entry and exit actions in code
+
 gbpjpy = yf.Ticker("GBPJPY=X") 
 
 # download daily data from start to today
-gbpjpy_close_data = gbpjpy.history(period="max", interval="1d")
+gbpjpy_data = gbpjpy.history(period="max", interval="1d")
 
-# save to CSV for your repo
-gbpjpy_close_data['Close'].to_csv("GBPJPY_close.csv") # <------- CHANGE THIS TO gbpjpy_data.to_csv("gbpjpy_data.csv") to import OHLC data
+# save to CSV
+gbpjpy_data.to_csv("GBPJPY_data.csv") # <------- CHANGE THIS TO gbpjpy_data.to_csv("gbpjpy_data.csv") to import OHLC data
 
 # calculate 20 day moving average using the 'Close' price
-gbpjpy_close_data['MA20'] = gbpjpy_close_data['Close'].rolling(window=20).mean()
+gbpjpy_data['MA20'] = gbpjpy_data['Close'].rolling(window=20).mean()
 
 # calculate 50 day moving average using the 'Close' price
-gbpjpy_close_data['MA50'] = gbpjpy_close_data['Close'].rolling(window=50).mean()
+gbpjpy_data['MA50'] = gbpjpy_data['Close'].rolling(window=50).mean()
 
+# calculate true range (tr) to create average true range (atr)
+tr_elements = pd.concat([(gbpjpy_data['High'] - gbpjpy_data['Low']),
+         (gbpjpy_data['High'] - gbpjpy_data['Close'].shift(1).abs()),
+         (gbpjpy_data['Low'] - gbpjpy_data['Close'].shift(1).abs())], axis=1)
+
+tr = tr_elements.max(axis=1)
+
+# calculate 1 day average true range using the OHLC price ***WORK IN PROGRESS***
+#atr_day_1 = tr(14)/14
+
+# calculate average true range (atr) ***WORK IN PROGRESS***
+#atr = atr_day_1(n-1)
 
 # plot the data
-gbpjpy_close_data[['Close', 'MA20', 'MA50']].plot(figsize=(12, 6))
+gbpjpy_data[['Close', 'MA20', 'MA50']].plot(figsize=(12, 6))
 plt.title("GBPJPY Close Price, 20 Day & 50 Day Moving Average")  
 plt.ylabel("Price (JPY)")
 plt.xlabel("Date")
@@ -27,20 +44,58 @@ plt.xlabel("Date")
 plt.show()
 
 
+# account and risk management parameters for strategy ***WORK IN PROGRESS***
+account_balance = 10000  # example starting balance
+max_risk_percent = 1.5   # max % of account to risk per trade
+min_account_balance = 1000  # don't trade if below this balance
+risk_reward_ratio = 2    # take profit = 2 x risk
+#take_profit = current_trade / 2 # too difficult to implement currently
+
+"""if account_balance < min_account_balance:
+    print("Account too low to trade.")
+elif risk_amount > (account_balance * max_risk_percent / 100):
+    print("Trade above max risk, skipping.")
+else:
+    # proceed with trade"""
+
 # changes to "buy" or "sell". Used so signals are only printed when the cross overs occur
 last_signal = None  
 
+# to store buy and sell data from for loop
+buy_dict = {}
+sell_dict = {}
+
 #for loop to iterate over close data to determine a buy or sell singal
-for index, row in gbpjpy_close_data.iterrows():
-    buy = row['Close'] > row['MA20'] and row['MA20'] > row['MA50']
-    sell = row['Close'] < row['MA20'] and row['MA20'] < row['MA50']
-    
-    if buy and last_signal != "buy":
-        print(index, "buy")
+for index, row in gbpjpy_data.iterrows():
+    buy_signal = row['Close'] > row['MA20'] and row['MA20'] > row['MA50']
+    sell_signal = row['Close'] < row['MA20'] and row['MA20'] < row['MA50']
+
+
+    if buy_signal and last_signal != "buy":
+        #update below code to include what's in the to do list below
+        buy_signal_timestamp = index
+        price_buy = row['Close']  #price as which signal is given
+        buy = "buy"
+        print(buy_signal_timestamp, (price_buy, buy))
         last_signal = "buy"
-    elif sell and last_signal != "sell":
-        print(index, "sell")
+        buy_dict[index]= buy
+
+
+        
+    elif sell_signal and last_signal != "sell":
+        #update below code to include what's in the to do list below
+        sell_signal_timestamp = index
+        price_sell = row['Close'] #price as which signal is given
+        sell = "sell"
+        print(sell_signal_timestamp, [price_sell, sell])
         last_signal = "sell"
+        sell_dict[index]= sell
+
+#test to see if dictionary works
+#do i need a dictionary??
+print(f"Here is the buy dictionary {buy_dict}\n")
+print(f"Here is the sell dictionary {sell_dict}\n")
+
 
 
 #to do:
