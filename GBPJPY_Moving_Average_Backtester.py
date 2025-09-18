@@ -14,7 +14,7 @@ gbpjpy = yf.Ticker("GBPJPY=X")
 gbpjpy_data = gbpjpy.history(period="max", interval="1d")
 
 # save to CSV
-gbpjpy_data.to_csv("GBPJPY_data.csv") # <------- CHANGE THIS TO gbpjpy_data.to_csv("gbpjpy_data.csv") to import OHLC data
+gbpjpy_data.to_csv("GBPJPY_data.csv")
 
 # calculate 20 day moving average using the 'Close' price
 gbpjpy_data['MA20'] = gbpjpy_data['Close'].rolling(window=20).mean()
@@ -29,19 +29,26 @@ tr_elements = pd.concat([(gbpjpy_data['High'] - gbpjpy_data['Low']),
 
 tr = tr_elements.max(axis=1)
 
-# calculate 1 day average true range using the OHLC price ***WORK IN PROGRESS***
-#atr_day_1 = tr(14)/14
+# calculate average true range (atr)
+atr = tr.ewm(alpha=1/14, adjust=False).mean()
 
-# calculate average true range (atr) ***WORK IN PROGRESS***
-#atr = atr_day_1(n-1)
-
-# plot the data
-gbpjpy_data[['Close', 'MA20', 'MA50']].plot(figsize=(12, 6))
+# plot close price and moving averages
+plt.figure(figsize=(12, 6))
+gbpjpy_data[['Close', 'MA20', 'MA50']].plot(ax=plt.gca())  
 plt.title("GBPJPY Close Price, 20 Day & 50 Day Moving Average")  
 plt.ylabel("Price (JPY)")
 plt.xlabel("Date")
-# present the data
+
+# plot ATR
+plt.figure(figsize=(12, 6))
+atr.plot(color="red", ax=plt.gca())
+plt.title("Average True Range, 14 Day Period")  
+plt.xlabel("Date")
+
+# present plotted data
 plt.show()
+
+
 
 
 # account and risk management parameters for strategy ***WORK IN PROGRESS***
