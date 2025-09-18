@@ -4,8 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #to do:
-# create atr_day_1 and atr for stop loss
-# account and risk management parameters for strategy
+# create account and risk management parameters for strategy
 # create actual entry and exit actions in code
 
 gbpjpy = yf.Ticker("GBPJPY=X") 
@@ -29,7 +28,7 @@ tr_elements = pd.concat([(gbpjpy_data["High"] - gbpjpy_data["Low"]),
 
 tr = tr_elements.max(axis=1)
 
-# calculate average true range (atr)
+# calculate atr
 atr = tr.ewm(alpha=1/14, adjust=False).mean()
 
 # plot two graphs in one window
@@ -86,7 +85,6 @@ for index, row in gbpjpy_data.iterrows():
         print(buy_signal_timestamp, (price_buy, buy))
         last_signal = "buy"
         buy_dict[index]= buy
-
 
         
     elif sell_signal and last_signal != "sell":
