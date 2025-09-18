@@ -32,18 +32,18 @@ tr = tr_elements.max(axis=1)
 # calculate average true range (atr)
 atr = tr.ewm(alpha=1/14, adjust=False).mean()
 
-# plot close price and moving averages
-plt.figure(figsize=(12, 6))
-gbpjpy_data[["Close", "MA20", "MA50"]].plot(ax=plt.gca())  
-plt.title("GBPJPY Close Price, 20 Day & 50 Day Moving Average")  
-plt.ylabel("Price (JPY)")
-plt.xlabel("Date")
+# plot two graphs in one window
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10), sharex=True)
 
-# plot ATR
-plt.figure(figsize=(12, 6))
-atr.plot(color="red", ax=plt.gca())
-plt.title("Average True Range, 14 Day Period")  
-plt.xlabel("Date")
+# plot close price and moving averages
+gbpjpy_data[["Close", "MA20", "MA50"]].plot(ax=ax1)
+ax1.set_title("GBPJPY Close Price, 20 Day & 50 Day Moving Average")
+ax1.set_ylabel("Price (JPY)")
+
+# plot atr
+atr.plot(color="red", ax=ax2)
+ax2.set_title("Average True Range, 14 Day Period")
+ax2.set_xlabel("Date")
 
 # present plotted data
 plt.show()
