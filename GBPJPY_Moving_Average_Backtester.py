@@ -81,7 +81,9 @@ for index, row in gbpjpy_data.iterrows():
 
 #to do:
 """***CURRENTLY MISSING ACCOUNT METRICS AND RISK MANAGEMENT RULES***:
+     - account balance
      - set take profit to 2:1
+     - set stop loss to 2x-3x of atr
      - if risk is more than 1.5% of account balance do not take trade
      - if value of account is less than a certain amount don"t take a trade
      - if take profit is hit, close 50% of the position and move stop loss to breakeven
