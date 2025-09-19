@@ -27,7 +27,7 @@ When price is below both moving averages and the 20 day moving average moves bel
 - Exports yfinance data to .csv.
 
 
-- Manipulates the data to create moving averages.
+- Manipulates the data to create moving averages and an average true range.
 
 
 - Allows iteration over the time series data via a for loop.
