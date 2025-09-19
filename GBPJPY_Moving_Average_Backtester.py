@@ -3,9 +3,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-#to do:
-# create account and risk management parameters for strategy
-# create actual entry and exit actions in code
 
 gbpjpy = yf.Ticker("GBPJPY=X") 
 
@@ -49,21 +46,6 @@ plt.show()
 
 
 
-
-# account and risk management parameters for strategy ***WORK IN PROGRESS***
-account_balance = 10000  # example starting balance
-max_risk_percent = 1.5   # max % of account to risk per trade
-min_account_balance = 1000  # don't trade if below this balance
-risk_reward_ratio = 2    # take profit = 2 x risk
-#take_profit = current_trade / 2 # too difficult to implement currently
-
-"""if account_balance < min_account_balance:
-    print("Account too low to trade.")
-elif risk_amount > (account_balance * max_risk_percent / 100):
-    print("Trade above max risk, skipping.")
-else:
-    # proceed with trade"""
-
 # changes to "buy" or "sell". Used so signals are only printed when the cross overs occur
 last_signal = None  
 
@@ -96,15 +78,9 @@ for index, row in gbpjpy_data.iterrows():
         last_signal = "sell"
         sell_dict[index]= sell
 
-#test to see if dictionary works
-#do i need a dictionary??
-print(f"Here is the buy dictionary {buy_dict}\n")
-print(f"Here is the sell dictionary {sell_dict}\n")
-
-
 
 #to do:
-"""***CURRENTLY MISSING RISK MANAGEMENT RULES WHICH ARE***:
+"""***CURRENTLY MISSING ACCOUNT METRICS AND RISK MANAGEMENT RULES***:
      - set take profit to 2:1
      - if risk is more than 1.5% of account balance do not take trade
      - if value of account is less than a certain amount don"t take a trade
