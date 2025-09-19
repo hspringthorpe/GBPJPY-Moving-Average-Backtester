@@ -49,10 +49,6 @@ plt.show()
 # changes to "buy" or "sell". Used so signals are only printed when the cross overs occur
 last_signal = None  
 
-# to store buy and sell data from for loop
-buy_dict = {}
-sell_dict = {}
-
 #for loop to iterate over close data to determine a buy or sell singal
 for index, row in gbpjpy_data.iterrows():
     buy_signal = row["Close"] > row["MA20"] and row["MA20"] > row["MA50"]
@@ -66,7 +62,6 @@ for index, row in gbpjpy_data.iterrows():
         buy = "buy"
         print(buy_signal_timestamp, (price_buy, buy))
         last_signal = "buy"
-        buy_dict[index]= buy
 
         
     elif sell_signal and last_signal != "sell":
@@ -76,7 +71,6 @@ for index, row in gbpjpy_data.iterrows():
         sell = "sell"
         print(sell_signal_timestamp, [price_sell, sell])
         last_signal = "sell"
-        sell_dict[index]= sell
 
 
 #to do:
