@@ -23,8 +23,8 @@ gbpjpy_data["MA50"] = gbpjpy_data["Close"].rolling(window=50).mean()
 
 # calculate true range (tr) to create average true range (atr)
 tr_elements = pd.concat([(gbpjpy_data["High"] - gbpjpy_data["Low"]),
-         (gbpjpy_data["High"] - gbpjpy_data["Close"].shift(1).abs()),
-         (gbpjpy_data["Low"] - gbpjpy_data["Close"].shift(1).abs())], axis=1)
+         ((gbpjpy_data["High"] - gbpjpy_data["Close"].shift(1)).abs()),
+         ((gbpjpy_data["Low"] - gbpjpy_data["Close"].shift(1)).abs())], axis=1)
 
 tr = tr_elements.max(axis=1)
 
